@@ -1,35 +1,36 @@
 import React from 'react';
 import QRCodeDisplay from './QRCodeDisplay';
 import { useParams } from 'react-router-dom';
-import pic from './profile.png';
 import './ui.css';
 
 const Ui = ({ users }) => {
-  const { id } = useParams();
-  const user = users[id];
+  const { handle } = useParams();
+  const user = users.find((u) => u.InstagramHandel === handle);
 
   if (!user) {
     return <p>User not found</p>;
   }
 
   return (
-    <div className='main11'>
-    <h1 className='n1'>welcome to website</h1>
-    <div className='main'>
-   
-    <div className='profile'>
-        
-         <h2>Profile</h2>
-         <img src={pic} alt="Profile Pic" className="profile-pic" />
-      <h2>{user.name}</h2>
-      <p>Email: {user.emailID}</p>
-      <br></br>
-      <div>
-      <QRCodeDisplay website={user.website} socialMedia={user.socialmedia} />
+    <div className="main11">
+      <h1 className="n1">Welcome to the Website</h1>
+      <div className="main">
+        <div className="profile">
+          <h2>Profile</h2>
+          <img src={user.Image} alt="Profile Pic" className="profile-pic" /><br /><br />
+          <span><b>Post:</b> {user.Posts}</span> <span><b>Followers:</b> {user.Followers}</span> <span><b>Following:</b> {user.Following}</span>
+          <h2>{user.Name}</h2>
+          <p>Email: {user.Email}</p>
+          <p>Instagram: {user.InstagramHandel}</p>
+          <br/>
+          <div>
+            <QRCodeDisplay
+              website={user.WebsiteRebrandlyUrl}
+              socialMedia={user.SocialRebrandlyUrl}
+            />
+          </div>
+        </div>
       </div>
-      
-    </div>
-    </div>
     </div>
   );
 };
